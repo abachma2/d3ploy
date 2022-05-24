@@ -21,9 +21,14 @@ Install from the d3ploy directory by typing
 
 and test with:
 
-`pytest`. 
+`pytest`
 
-If tests fail due to module import errors, try `pip3 install --upgrade scipy==1.2.0`. Make sure the python version used to install cyclus and d3ploy is consistent. If Python 3 is being used, the python package dependencies should be installed with `pip3`.
+If tests fail:
+ - Module import errors: try `pip3 install --upgrade scipy==1.2.0`
+ - Make sure the python version used to install cyclus and d3ploy is consistent
+ - If Python 3 is being used, the python package dependencies should be installed with `pip3`
+ - Double check dependencies are installed, if Cyclus can't find the d3ploy archetype library, then try installing arch via 
+   `conda install -c bashtage arch`
 
 ## demand_driven_deployment_inst and supply_driven_deployment_inst
 
@@ -39,7 +44,7 @@ performed if the method chosen by the institution is 'moving average'. In this i
 the institution will schedule facilities for deployment only if there is a 
 deficit in the current time step. 
 
-This institution is used for facilities that exist in the front end of the fuel cycle. 
+This institution is for facilities in the front end of the fuel cycle. 
 
 ### supply_driven_deployment_inst 
 `supply_driven_deployment_inst` is a  Cyclus `Institution` archetype that performs supply-driven
@@ -53,9 +58,9 @@ performed if the method chosen by the institution is 'moving average'. In this i
 the institution will schedule facilities for deployment only if there is a 
 deficit in the current time step. 
 
-This institution is used for facilities that exist in the back end of the fuel cycle. 
+This institution is for facilities in the back end of the fuel cycle. 
 
-### Required Inputs for each institution  
+### Required Inputs for both institutions  
 In the first four inputs,  for `demand_driven_deployment_inst`, the facility included should be the facility that supplies the commodity
 and for `supply_driven_deployment_inst`, the facility included should be the facility that supplies capacity for that commodity. 
 - **facility_commod**: This is a mapstringstring defining each facility and the output commodity to track. 
@@ -78,7 +83,7 @@ and for `supply_driven_deployment_inst`, the facility included should be the fac
 buffer for it. For percentage, the user should input `rel`, for a absolute value, the user should 
 input `abs`. The default is percentage. 
 
-#### Differing Inputs 
+### Differing Inputs 
 DemandDrivenDeploymentInst:
 - **supply_buffer**: This is the amount above demand that the user wants the supply to meet. 
 The user can define the buffer type in the state variable `buffer_type`.
@@ -108,7 +113,7 @@ There are four parameters users can define:
 - **demand_std_dev** = Standard deviation adjustment for demand  (default = 0)
 
 ##### MA (`ma`)
-
+Moving average method
 
 ##### ARMA (`arma`)
 The autoregressive moving average method takes a time series and uses an 
@@ -148,13 +153,13 @@ seasonality.
 The method builds a function that represents the data as a sumation of harmonics of different order. In the case of having a set of data that presents oscilations the user should set the degree to 2.
 
 #### Stochastic Optimization
-Currently a work in progress
+Currently in development
 
 
 ## Demand Fac
 This facility is a test facility for D3ploy. It generates a random amount of
 supply and demand for commodities, and then reports these using the 
-**RecordTimeSeries** functions inside of Cyclus.Thus providing a supply and
+**RecordTimeSeries** functions inside of Cyclus. Thus providing a supply and
 demand to the institutions.
 
 Amount of commodity demanded and supplied can be determined randomly through
